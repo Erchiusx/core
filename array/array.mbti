@@ -58,6 +58,7 @@ impl FixedArray {
   rev_foldi[A, B](Self[A], init~ : B, (Int, B, A) -> B) -> B
   rev_inplace[T](Self[T]) -> Unit
   search[T : Eq](Self[T], T) -> Int?
+  search_by[T : Eq](Self[T], (T) -> Bool) -> Int?
   sort[T : Compare](Self[T]) -> Unit
   sort_by[T](Self[T], (T, T) -> Int) -> Unit
   sort_by_key[T, K : Compare](Self[T], (T) -> K) -> Unit

@@ -104,3 +104,29 @@ test "FixedArray::makei" {
   assert_eq!(arr[0].val, 1)
   assert_eq!(arr[1].val, 1)
 }
+
+///|
+test "FixedArray::search" {
+  {
+    let arr : FixedArray[Int] = []
+    assert_eq!(arr.search(3), None)
+    assert_eq!(arr.search(-1), None)
+  }
+  {
+    let arr : FixedArray[_] = [3]
+    assert_eq!(arr.search(3), Some(0))
+    assert_eq!(arr.search(-1), None)
+  }
+  let arr : FixedArray[_] = [1, 2, 3, 4, 5]
+  assert_eq!(arr.search(1), Some(0))
+  assert_eq!(arr.search(5), Some(4))
+  assert_eq!(arr.search(3), Some(2))
+  assert_eq!(arr.search(-1), None)
+}
+
+///|
+test "FixedArray::search_by" {
+  let arr : FixedArray[_] = [1, 2, 3, 4, 5]
+  inspect(arr.search_by(fn(x) { x > 3 }), content="Some(3)")
+  inspect(arr.search_by(fn(x) { x % 2 == 0 }), content="Some(1)")
+}

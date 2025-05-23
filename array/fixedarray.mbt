@@ -765,22 +765,27 @@ pub fn[T : Eq] FixedArray::search(self : FixedArray[T], value : T) -> Int? {
 }
 
 ///|
-test "search" {
-  {
-    let arr : FixedArray[Int] = []
-    assert_eq!(arr.search(3), None)
-    assert_eq!(arr.search(-1), None)
+/// Searches the array for the first element that satisfies
+/// the function
+/// 
+/// ```moonbit
+/// test "find_index" {
+///   let arr: FixedArray[Int] = [1, 2, 3, 4, 5]
+///   inspect(arr.search_by(fn(x) { x > 3 }), content="Some(3)")
+///   inspect(arr.search_by(fn(x) { x > 10 }), content="None")
+/// }
+/// ```
+pub fn[T : Eq] FixedArray::search_by(
+  self : FixedArray[T],
+  f : (T) -> Bool
+) -> Int? {
+  for i, v in self {
+    if f(v) {
+      break Some(i)
+    }
+  } else {
+    None
   }
-  {
-    let arr : FixedArray[_] = [3]
-    assert_eq!(arr.search(3), Some(0))
-    assert_eq!(arr.search(-1), None)
-  }
-  let arr : FixedArray[_] = [1, 2, 3, 4, 5]
-  assert_eq!(arr.search(1), Some(0))
-  assert_eq!(arr.search(5), Some(4))
-  assert_eq!(arr.search(3), Some(2))
-  assert_eq!(arr.search(-1), None)
 }
 
 ///|
